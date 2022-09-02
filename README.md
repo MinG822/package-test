@@ -31,7 +31,7 @@ mypackage
 mypackage 는 절대 경로를 사용함
 
 
-ex) greeting.py 에서 from mypackage.say_hello.hello import say_hello
+ex) greeting.py 에서 from say_hello.hello import say_hello
 
 ## setup.py 작성
 ```
@@ -91,12 +91,46 @@ Uninstalling mypackage-0.0.1:
 pytest
 ```
 
+### 추가
+tests 를 실행할 때 내가 빌드한 패키지에 대해서 실행되는게 아니라
+윗 뎁스의 mypackage 를 찾아서 import 해준 후 pytests 를 진행하는 듯 보였다.
+```
+ImportError while importing test module '/Users/ming/Test/Setuptools/tests/test_greeting.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/importlib/__init__.py:126: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests/test_greeting.py:1: in <module>
+    from mypackage.greeting.greeting import greeting
+mypackage/greeting/greeting.py:1: in <module>
+    from greeting_words.anyeong import say_anyeong
+E   ModuleNotFoundError: No module named 'greeting_words'
+```
+확실히 하고 싶다면 venv 를 만들어서 테스트하는 게 나을 듯 하다
+
+### 추추가
+패키지라 가정하고 import를 잘 맞춰주었을 때, pytest 를 실행하면 
+import_module mypackage 를 import 해주고 잘 실행해준다.
+패키징 후 테스트 하는 것과 같은 효과
+
 ## 이슈
 패키징 전의 마이패키지의 경우 구동시 모듈 notfound error 가 발생한다
 
 패키징 했을 때도 동작하고, 패키징 전에도 동작하며,
 호출하는 위치에서도 자유로운 import 를 하고 싶은데, 방법을 더 찾아봐야겠다.
 
+### 시도1
+mypackage 내부의 main.py 를 실행하려고 할땐, 서브 패키지 내에서 import 할 때 from mypackage. 이 아니라 from 으로 시작해도 동작.
+
+그러나 빌드하게 되면, 서브 패키지의 모듈의 함수를 호출할 때 module not found error 발생
+```
+Traceback (most recent call last):
+  File "/Users/ming/Test/Setuptools/tests/test_greeting.py", line 1, in <module>
+    from mypackage.greeting.greeting import greeting
+  File "/Users/ming/Test/Setuptools/venv/lib/python3.10/site-packages/mypackage/greeting/greeting.py", line 1, in <module>
+    from greeting_words.anyeong import say_anyeong
+ModuleNotFoundError: No module named 'greeting_words'
+```
 
 ## 참고
 https://setuptools.pypa.io/en/latest/userguide/quickstart.html

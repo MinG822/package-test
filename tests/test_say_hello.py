@@ -1,6 +1,5 @@
-from mypackage import say_hello
-from mypackage.say_hello.anyeong import say_anyeong
-from mypackage.say_hello.hello import say_hello
+from mypackage.greeting_words.anyeong import say_anyeong
+from mypackage.greeting_words.hello import say_hello
 
 
 def test_say_hello():
