@@ -1,3 +1,3 @@
-from mypackage.greeting.greeting import greeting
+from greeting.greeting import greeting
 
 greeting()

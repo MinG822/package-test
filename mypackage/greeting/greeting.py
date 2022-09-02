@@ -1,5 +1,5 @@
-from mypackage.greeting_words.anyeong import say_anyeong
-from mypackage.greeting_words.hello import say_hello
+from ..greeting_words.anyeong import say_anyeong
+from ..greeting_words.hello import say_hello
 
 LANGUAGE = "KOR"
 

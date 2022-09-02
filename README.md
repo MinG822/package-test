@@ -109,7 +109,7 @@ E   ModuleNotFoundError: No module named 'greeting_words'
 확실히 하고 싶다면 venv 를 만들어서 테스트하는 게 나을 듯 하다
 
 ### 추추가
-패키지라 가정하고 import를 잘 맞춰주었을 때, pytest 를 실행하면 
+패키지라 가정하고 import를 from mypackage.~ 으로 잘 맞춰주었을 때, pytest 를 실행하면 
 import_module mypackage 를 import 해주고 잘 실행해준다.
 패키징 후 테스트 하는 것과 같은 효과
 
@@ -131,6 +131,18 @@ Traceback (most recent call last):
     from greeting_words.anyeong import say_anyeong
 ModuleNotFoundError: No module named 'greeting_words'
 ```
+
+### 시도2
+m패키징 했을 때 imoport mypackage. 가 아니라 relative import 를 할경우 main.py 를 실행할 수 없음.
+```
+Traceback (most recent call last):
+  File "/Users/ming/Test/Setuptools/mypackage/main.py", line 1, in <module>
+    from greeting.greeting import greeting
+  File "/Users/ming/Test/Setuptools/mypackage/greeting/greeting.py", line 1, in <module>
+    from ..greeting_words.anyeong import say_anyeong
+ImportError: attempted relative import beyond top-level package
+```
+pytests 실행 시 매우 잘 동작
 
 ## 참고
 https://setuptools.pypa.io/en/latest/userguide/quickstart.html
