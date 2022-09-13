@@ -1,9 +1,9 @@
-# python setuptools 를 이용한 패키지 테스트
+# python 패키지 테스트
 
 ## 목표
-- 복잡한 폴더 구조의 파이썬 프로젝트의 패키지화
+- 복잡한 폴더 구조의 파이썬 프로젝트 패키징
 - 패키지의 로컬 설치
-- 로컬 설치된 패키지 테스트 실행
+- 패키지 테스트 실행
 
 ## 환경
 - mac os
@@ -144,8 +144,27 @@ ImportError: attempted relative import beyond top-level package
 ```
 pytests 실행 시 매우 잘 동작
 
+### 시도3와 해결
+파이썬을 스크립트로 구동시키는 게 아니라, 모듈로 구동시키면 해결
+
+imoport mypackage.~ 의 형식으로 전체 import 형식을 맞춰주고,
+구동을 시켜야할 때는 python3 -m mypackage.main, python3 -m mypackage.greeting.greeting 등으로 실행
+
+test 역시 패키지 테스트용 테스트 코드들 그대로 사용하면 된다.
+해결하고 나니 너무 바보같지만... 패키징 연습해보고.. 구조를 좀 고민해본 경험으로...
+
+### 덧
+coverage 로 패키지의 테스트 커버리지를 측정할 수 있음!
+ 
+```
+python3 -m pip install coverage
+coverage run -m pytest
+coverage report -m
+```
+
 ## 참고
 https://setuptools.pypa.io/en/latest/userguide/quickstart.html
 https://packaging.python.org/en/latest/tutorials/packaging-projects/
 https://docs.python.org/3/tutorial/modules.html#intra-package-references
+https://realpython.com/lessons/scripts-modules-packages-and-libraries/#:~:text=Scripts%20are%20runnable%20Python%20programs,and%20functions%E2%80%94can%20be%20used.
 

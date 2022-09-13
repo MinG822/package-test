@@ -1,12 +1,11 @@
-from ..greeting_words.anyeong import say_anyeong
-from ..greeting_words.hello import say_hello
+from mypackage.greeting_words.anyeong import say_anyeong
+from mypackage.greeting_words.hello import say_hello
 
-LANGUAGE = "KOR"
 
-def greeting():
-    if LANGUAGE == "KOR":
+def greeting(lang):
+    if lang == "KOR":
         return say_anyeong()
-    return say_hello()
-
-if __name__ == "__main__":
-    greeting()
+    elif lang == "ENG":
+        return say_hello()
+    else:
+        raise ValueError("lang")
